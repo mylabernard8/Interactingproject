@@ -1,10 +1,10 @@
 # Reflection:
 
 ### What was challenging for you during this process?
-The most challenging part for me during this project was trying to make sure the syntax in my code was correct, which took a lot of trial and error for me, but I enventually found my mistake. This was actually very helpful thpugh because when I ran into the problem later on, I knew exactly how to fix it. Another challenging aspect of this was doing outide research to help create the shape I wanted.
+Learning about conditionals has been hard because at first, it was challenging to keep track of all the different ways conditions could be set up, especially understanding when and why to use if, else if, and else. Sometimes I found myself lost in the logic, trying to get the program to respond the way I wanted. Debugging my code was tough at times because a small mistake, like a missing or extra bracket, could completely change the outcome.
 
 ### What makes more sense now than it did before you started?
-Something that makes more sense to me now than it did before was how to use multiple varibles to help make code more concised and easy to read. Another thing that I learned how to do was add in different aspects, like time and color to be a changing factor in my code.
+However, as I practiced, I started seeing how powerful conditionals are in controlling the flow of a program. Now, I feel more confident setting up multiple conditions to check different cases, and it makes more sense how each conditional connects to create a sequence of actions based on specific situations.
 
 ### What are you proud of?
-I am really proud of the code I was able complete and all of the challenges I was able to overcome and learn from, no matter how annoying it felt in the moment.
+I'm proud of the times I stuck with a tricky problem until I figured it out. Each time my code ran correctly because of the conditions I set up, it felt like a win! It’s rewarding to see the program respond correctly, knowing that it’s all because of the careful logic I crafted.
