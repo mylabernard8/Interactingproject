@@ -1,1 +1,3 @@
+# Refactored Reflection:
 
+When I started refactoring the code, it was challenging to see exactly where to make changes to shift toward using objects. However, once I identified the right places, I realized how much easier and clearer the code became with objects. By creating classes with properties like position, size, velocity, and color, each shape’s functionality became self-contained, making the code more modular and organized. This structure improves readability and reusability since each shape’s logic is neatly encapsulated within its class, allowing for easy updates and debugging. Overall, the object-oriented approach makes expanding or modifying the code simpler and more efficient.
