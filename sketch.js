@@ -1,8 +1,4 @@
-let ellipseX, ellipseY, ellipseDX, ellipseDY;
-let squareX, squareY, squareDX, squareDY;
-let ellipseRadius = 20;
-let squareSize = 40;
-let ellipseColor, squareColor;
+let ellipseObj, squareObj;
 
 function setup() {
   createCanvas(400, 400);
@@ -11,72 +7,46 @@ function setup() {
 
 function draw() {
   background(220);
-  
+
   // Move shapes
-  ellipseX += ellipseDX;
-  ellipseY += ellipseDY;
-  squareX += squareDX;
-  squareY += squareDY;
+  ellipseObj.move();
+  squareObj.move();
 
-  // Set shape colors
-  fill(ellipseColor);
-  ellipse(ellipseX, ellipseY, ellipseRadius * 2);
-  
-  fill(squareColor);
-  rect(squareX - squareSize / 2, squareY - squareSize / 2, squareSize, squareSize);
+  // Display shapes
+  ellipseObj.display();
+  squareObj.display();
 
-  // Boundaries and bounce
-  bounceOffWalls();
+  // Bounce off walls
+  ellipseObj.bounceOffWalls();
+  squareObj.bounceOffWalls();
 
-  // Collision and bounce if touching
-  if (isColliding()) {
+  // Check for collision
+  if (isColliding(ellipseObj, squareObj)) {
     // Swap velocities for bounce effect
-    let tempDX = ellipseDX;
-    let tempDY = ellipseDY;
-    ellipseDX = squareDX;
-    ellipseDY = squareDY;
-    squareDX = tempDX;
-    squareDY = tempDY;
+    let tempDX = ellipseObj.dx;
+    let tempDY = ellipseObj.dy;
+    ellipseObj.dx = squareObj.dx;
+    ellipseObj.dy = squareObj.dy;
+    squareObj.dx = tempDX;
+    squareObj.dy = tempDY;
 
     // Change colors upon collision
-    ellipseColor = color(random(255), random(255), random(255));
-    squareColor = color(random(255), random(255), random(255));
+    ellipseObj.changeColor();
+    squareObj.changeColor();
   }
 }
 
-function bounceOffWalls() {
-  // Ellipse boundary check
-  if (ellipseX < ellipseRadius || ellipseX > width - ellipseRadius) ellipseDX *= -1;
-  if (ellipseY < ellipseRadius || ellipseY > height - ellipseRadius) ellipseDY *= -1;
-
-  // Square boundary check
-  if (squareX < squareSize / 2 || squareX > width - squareSize / 2) squareDX *= -1;
-  if (squareY < squareSize / 2 || squareY > height - squareSize / 2) squareDY *= -1;
-}
-
-function isColliding() {
-  let distanceX = ellipseX - squareX;
-  let distanceY = ellipseY - squareY;
+function isColliding(ellipse, square) {
+  let distanceX = ellipse.x - square.x;
+  let distanceY = ellipse.y - square.y;
   let distance = sqrt(distanceX * distanceX + distanceY * distanceY);
   
-  return distance < ellipseRadius + squareSize / 2;
+  return distance < ellipse.radius + square.size / 2;
 }
 
 function resetShapes() {
-  // Reset positions and velocities
-  ellipseX = random(ellipseRadius, width - ellipseRadius);
-  ellipseY = random(ellipseRadius, height - ellipseRadius);
-  ellipseDX = random(-3, 3);
-  ellipseDY = random(-3, 3);
-  
-  squareX = random(squareSize / 2, width - squareSize / 2);
-  squareY = random(squareSize / 2, height - squareSize / 2);
-  squareDX = random(-3, 3);
-  squareDY = random(-3, 3);
-
-  // Reset colors
-  ellipseColor = color(0, 0, 255);  // Initial color for ellipse (blue)
-  squareColor = color(255, 0, 0);   // Initial color for square (red)
+  ellipseObj = new Ellipse(random(20, width - 20), random(20, height - 20), 20, random(-3, 3), random(-3, 3), color(0, 0, 255));
+  squareObj = new Square(random(20, width - 20), random(20, height - 20), 40, random(-3, 3), random(-3, 3), color(255, 0, 0));
 }
 
 function keyPressed() {
@@ -84,4 +54,65 @@ function keyPressed() {
     resetShapes();
   }
 }
+
+class Ellipse {
+  constructor(x, y, radius, dx, dy, col) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.dx = dx;
+    this.dy = dy;
+    this.color = col;
+  }
+
+  move() {
+    this.x += this.dx;
+    this.y += this.dy;
+  }
+
+  display() {
+    fill(this.color);
+    ellipse(this.x, this.y, this.radius * 2);
+  }
+
+  bounceOffWalls() {
+    if (this.x < this.radius || this.x > width - this.radius) this.dx *= -1;
+    if (this.y < this.radius || this.y > height - this.radius) this.dy *= -1;
+  }
+
+  changeColor() {
+    this.color = color(random(255), random(255), random(255));
+  }
+}
+
+class Square {
+  constructor(x, y, size, dx, dy, col) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.dx = dx;
+    this.dy = dy;
+    this.color = col;
+  }
+
+  move() {
+    this.x += this.dx;
+    this.y += this.dy;
+  }
+
+  display() {
+    fill(this.color);
+    rect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+  }
+
+  bounceOffWalls() {
+    if (this.x < this.size / 2 || this.x > width - this.size / 2) this.dx *= -1;
+    if (this.y < this.size / 2 || this.y > height - this.size / 2) this.dy *= -1;
+  }
+
+  changeColor() {
+    this.color = color(random(255), random(255), random(255));
+  }
+}
+
 
